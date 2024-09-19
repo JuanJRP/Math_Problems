@@ -1,0 +1,41 @@
+/* regina -c juanjrp.rx */
+
+numeric digits 90
+
+main:
+  PULL K N
+  PI = calculatePi(K, N, 0, 0, 6)
+  SAY PI
+
+calculatePi:
+  ARG K, N, R, sideLength, sides
+  IF R = 0 THEN R = 10**K
+  IF sideLength = 0 THEN sideLength = R
+  IF N = 0 THEN DO
+    pi = trunc((sides * sideLength) / 2)
+    return pi
+  END
+  ELSE IF N > 0 THEN DO
+    d = trunc(sideLength / 2)
+    h = isqrt((R**2) - d**2)
+    sideLength = isqrt(d**2 + ((R - h)**2))
+    sides *= 2
+    return calculatePi(K, N - 1, R, sideLength, sides)
+  END
+
+isqrt:
+  ARG Y
+  IF Y = 0 | Y = 1 THEN return Y
+  return binarSearch(0, Y)
+
+binarSearch:
+  ARG start, end
+  IF start > end THEN return end
+  half = trunc((start + end) / 2)
+  IF half * half = Y THEN return half
+  ELSE IF half * half < Y THEN return binarSearch(half + 1, end)
+  ELSE return binarSearch(start, half - 1)
+
+/* cat DATA.lst | regina juanjrp.rx
+314159265358979323833813570721480770102898941829715076772748525635142418432
+*/
