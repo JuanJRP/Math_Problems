@@ -16,4 +16,4 @@ This repository contains solutions to various mathematical problems implemented 
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/JuanJRP/Lobster_Js.git
+   git clone https://github.com/JuanJRP/Math_Problems.git
